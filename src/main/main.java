@@ -5,6 +5,8 @@
  */
 package main;
 
+import View.Home_GUI;
+
 /**
  *
  * @author Chiquang
@@ -16,6 +18,8 @@ public class main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Home_GUI hg = new Home_GUI();
+        hg.run();
     }
     
 }
