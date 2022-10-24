@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jl1.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/jl1.0.1/jl1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ij-1.53u.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/json-20220924.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/ij-1.53u-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

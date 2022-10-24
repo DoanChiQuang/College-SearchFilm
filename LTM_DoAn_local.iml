@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="file://Lib/DJNativeSwing-SWT-1-0-2/DJNativeSwing.jar" />
+    <libelement value="file://Lib/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWT.jar" />
+    <libelement value="file://Lib/DJNativeSwing-SWT-1-0-2/org.eclipse.swt.win32.win32.x86_64-4.3.jar" />
+    <libelement value="file://Lib/imagej/ij-1.53j.jar" />
+    <libelement value="file://Lib/JavaMediaFramework/jmf-2.1.1e.jar" />
+    <libelement value="file://Lib/jl1.0.1/jl1.0.1.jar" />
+    <libelement value="file://Lib/JTattoo/JTattoo-1.6.13.jar" />
+    <libelement value="file://Lib/org.json.jar/org.json.jar" />
+    <libelement value="file://Lib/syntheticaDarkSimple/syntheticaDarkSimpleDemo.jar" />
+    <libelement value="file://Lib/tensorflow/libtensorflow_jni-1.1.0-rc2.jar" />
+    <libelement value="file://Lib/tensorflow/libtensorflow-1.1.0-rc2.jar" />
+    <libelement value="file://Lib/tensorflow/tensorflow-1.1.0-rc2.jar" />
+    <libelement value="file://Lib/vlc/jna-3.5.2.jar" />
+    <libelement value="file://Lib/vlc/platform-3.5.2.jar" />
+    <libelement value="file://Lib/vlc/slf4j-api-1.7.10.jar" />
+    <libelement value="file://Lib/vlc/vlcj-3.9.0.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library name="DJNativeSwing.jar">
+        <CLASSES>
+          <root url="file://Lib/DJNativeSwing-SWT-1-0-2/DJNativeSwing.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="DJNativeSwing-SWT.jar">
+        <CLASSES>
+          <root url="file://Lib/DJNativeSwing-SWT-1-0-2/DJNativeSwing-SWT.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.eclipse.swt.win32.win32.x86_64-4.3.jar">
+        <CLASSES>
+          <root url="file://Lib/DJNativeSwing-SWT-1-0-2/org.eclipse.swt.win32.win32.x86_64-4.3.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="ij-1.53j.jar">
+        <CLASSES>
+          <root url="file://Lib/imagej/ij-1.53j.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jmf-2.1.1e.jar">
+        <CLASSES>
+          <root url="file://Lib/JavaMediaFramework/jmf-2.1.1e.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jl1.0.1.jar">
+        <CLASSES>
+          <root url="file://Lib/jl1.0.1/jl1.0.1.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="JTattoo-1.6.13.jar">
+        <CLASSES>
+          <root url="file://Lib/JTattoo/JTattoo-1.6.13.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.json.jar">
+        <CLASSES>
+          <root url="file://Lib/org.json.jar/org.json.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="syntheticaDarkSimpleDemo.jar">
+        <CLASSES>
+          <root url="file://Lib/syntheticaDarkSimple/syntheticaDarkSimpleDemo.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="libtensorflow_jni-1.1.0-rc2.jar">
+        <CLASSES>
+          <root url="file://Lib/tensorflow/libtensorflow_jni-1.1.0-rc2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="libtensorflow-1.1.0-rc2.jar">
+        <CLASSES>
+          <root url="file://Lib/tensorflow/libtensorflow-1.1.0-rc2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="tensorflow-1.1.0-rc2.jar">
+        <CLASSES>
+          <root url="file://Lib/tensorflow/tensorflow-1.1.0-rc2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jna-3.5.2.jar">
+        <CLASSES>
+          <root url="file://Lib/vlc/jna-3.5.2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="platform-3.5.2.jar">
+        <CLASSES>
+          <root url="file://Lib/vlc/platform-3.5.2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="slf4j-api-1.7.10.jar">
+        <CLASSES>
+          <root url="file://Lib/vlc/slf4j-api-1.7.10.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="vlcj-3.9.0.jar">
+        <CLASSES>
+          <root url="file://Lib/vlc/vlcj-3.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
