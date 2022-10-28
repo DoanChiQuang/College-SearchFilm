@@ -117,46 +117,46 @@ public class HandleImageController implements Runnable {
 	}
 	
 
-		public ArrayList<BufferedImage> Search_Image() throws IOException{
-			
-			String token = "";
-	        String projectId = "0";
-	        String image_url = "";
-	        String[] labels = {"label1", "label2"};
-	        int limit = 10;
-	        double threshold = 0;
-	        
-	        StringBuilder paramsString = new StringBuilder();
-	        for (String label : labels) {
-	            paramsString.append("&labels=").append(label);
-	        }
-	        paramsString.append("&and=true"); // to use 'or' operator for filtering labels remove this line or change it to '&and=false'
-	        paramsString.append("&limit=").append(limit);
-	        paramsString.append("&threshold=").append(threshold);
-
-	        String body = "{\r\n    \"url\": \"%s\"\r\n}".formatted(image_url);
-	        
-	        URL url = new URL("https://platform.sentisight.ai/api/similarity?project=" + projectId + paramsString);
-	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-	        connection.setRequestProperty("Content-Type", "application/json");
-	        connection.setRequestProperty("X-Auth-token", token);
-	        connection.setRequestMethod("POST");
-	        connection.setDoOutput(true);
-	        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-	        wr.writeBytes(body);
-	        wr.flush();
-	        wr.close();
-
-	        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-	        String output;
-	        while ((output = in.readLine()) != null) {
-	            System.out.println(output);
-	        }
-	        in.close();
-	        
-			return null;
-			
-		}
+//		public ArrayList<BufferedImage> Search_Image() throws IOException{
+//
+//			String token = "";
+//	        String projectId = "0";
+//	        String image_url = "";
+//	        String[] labels = {"label1", "label2"};
+//	        int limit = 10;
+//	        double threshold = 0;
+//
+//	        StringBuilder paramsString = new StringBuilder();
+//	        for (String label : labels) {
+//	            paramsString.append("&labels=").append(label);
+//	        }
+//	        paramsString.append("&and=true"); // to use 'or' operator for filtering labels remove this line or change it to '&and=false'
+//	        paramsString.append("&limit=").append(limit);
+//	        paramsString.append("&threshold=").append(threshold);
+//
+//	        String body = "{\r\n    \"url\": \"%s\"\r\n}".formatted(image_url);
+//
+//	        URL url = new URL("https://platform.sentisight.ai/api/similarity?project=" + projectId + paramsString);
+//	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//	        connection.setRequestProperty("Content-Type", "application/json");
+//	        connection.setRequestProperty("X-Auth-token", token);
+//	        connection.setRequestMethod("POST");
+//	        connection.setDoOutput(true);
+//	        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+//	        wr.writeBytes(body);
+//	        wr.flush();
+//	        wr.close();
+//
+//	        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//	        String output;
+//	        while ((output = in.readLine()) != null) {
+//	            System.out.println(output);
+//	        }
+//	        in.close();
+//
+//			return null;
+//
+//		}
 	public static void main(String[] args) {
 		HandleImageController a = new HandleImageController();
 //		a.Open_Server(6000);		
