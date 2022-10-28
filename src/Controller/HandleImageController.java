@@ -1,39 +1,22 @@
-package controllerr;
+package Controller;
 
-import java.awt.image.BufferedImage;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.plaf.DimensionUIResource;
 
-import API.find_Image;
-import Model.model_Image;
-import ij.IJ;
-import ij.ImagePlus;
-import ij.io.FileSaver;
-import ij.process.ImageConverter;
-import ij.process.ImageProcessor;
-
-public class server_Controller implements Runnable {
-
+public class HandleImageController implements Runnable {
+	
 	private Thread thread;					//Thread
 	private String namethread;				//Tên thread
 	public BufferedReader 	in;				//read from pipe socket
@@ -45,7 +28,7 @@ public class server_Controller implements Runnable {
 	
 	
 	//Constructor
-	public server_Controller ()
+	public HandleImageController ()
 	{
 		this.in  		   = null;
 		this.out 		   = null;
@@ -134,48 +117,48 @@ public class server_Controller implements Runnable {
 	}
 	
 
-//		public ArrayList<BufferedImage> Search_Image() throws IOException{
-//			
-//			String token = "";
-//	        String projectId = "0";
-//	        String image_url = "";
-//	        String[] labels = {"label1", "label2"};
-//	        int limit = 10;
-//	        double threshold = 0;
-//	        
-//	        StringBuilder paramsString = new StringBuilder();
-//	        for (String label : labels) {
-//	            paramsString.append("&labels=").append(label);
-//	        }
-//	        paramsString.append("&and=true"); // to use 'or' operator for filtering labels remove this line or change it to '&and=false'
-//	        paramsString.append("&limit=").append(limit);
-//	        paramsString.append("&threshold=").append(threshold);
-//
-//	        String body = "{\r\n    \"url\": \"%s\"\r\n}".formatted(image_url);
-//	        
-//	        URL url = new URL("https://platform.sentisight.ai/api/similarity?project=" + projectId + paramsString);
-//	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//	        connection.setRequestProperty("Content-Type", "application/json");
-//	        connection.setRequestProperty("X-Auth-token", token);
-//	        connection.setRequestMethod("POST");
-//	        connection.setDoOutput(true);
-//	        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-//	        wr.writeBytes(body);
-//	        wr.flush();
-//	        wr.close();
-//
-//	        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//	        String output;
-//	        while ((output = in.readLine()) != null) {
-//	            System.out.println(output);
-//	        }
-//	        in.close();
-//	        
-//			return null;
-//			
-//		}
+		public ArrayList<BufferedImage> Search_Image() throws IOException{
+			
+			String token = "";
+	        String projectId = "0";
+	        String image_url = "";
+	        String[] labels = {"label1", "label2"};
+	        int limit = 10;
+	        double threshold = 0;
+	        
+	        StringBuilder paramsString = new StringBuilder();
+	        for (String label : labels) {
+	            paramsString.append("&labels=").append(label);
+	        }
+	        paramsString.append("&and=true"); // to use 'or' operator for filtering labels remove this line or change it to '&and=false'
+	        paramsString.append("&limit=").append(limit);
+	        paramsString.append("&threshold=").append(threshold);
+
+	        String body = "{\r\n    \"url\": \"%s\"\r\n}".formatted(image_url);
+	        
+	        URL url = new URL("https://platform.sentisight.ai/api/similarity?project=" + projectId + paramsString);
+	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	        connection.setRequestProperty("Content-Type", "application/json");
+	        connection.setRequestProperty("X-Auth-token", token);
+	        connection.setRequestMethod("POST");
+	        connection.setDoOutput(true);
+	        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+	        wr.writeBytes(body);
+	        wr.flush();
+	        wr.close();
+
+	        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	        String output;
+	        while ((output = in.readLine()) != null) {
+	            System.out.println(output);
+	        }
+	        in.close();
+	        
+			return null;
+			
+		}
 	public static void main(String[] args) {
-		server_Controller a = new server_Controller();
+		HandleImageController a = new HandleImageController();
 //		a.Open_Server(6000);		
 	}
 
@@ -193,4 +176,5 @@ public class server_Controller implements Runnable {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

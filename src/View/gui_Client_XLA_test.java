@@ -2,32 +2,25 @@ package View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import Model.model_Image;
-import controllerr.server_Controller;
-import ij.process.ImageProcessor;
+import Controller.HandleImageController;
 
-public class gui_Client_XLA_text extends JFrame {
+public class gui_Client_XLA_test extends JFrame {
 	
 	private JPanel contentPane;
 	private JButton gray, resize,upload,getimage,api;
@@ -36,7 +29,7 @@ public class gui_Client_XLA_text extends JFrame {
 	private String keyword = "null";
 	private String extension = "null";
 	private model_Image model_image = new model_Image();
-	private server_Controller server_Controller = new server_Controller();
+	private HandleImageController handleImageController = new HandleImageController();
 	private JLabel image;
 	public boolean click = false;
 	
@@ -51,7 +44,7 @@ public class gui_Client_XLA_text extends JFrame {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					gui_Client_XLA_text frame = new gui_Client_XLA_text();
+					gui_Client_XLA_test frame = new gui_Client_XLA_test();
 					frame.setVisible(true);					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +53,7 @@ public class gui_Client_XLA_text extends JFrame {
 		});
 	}
 	
-	public gui_Client_XLA_text() throws MalformedURLException {
+	public gui_Client_XLA_test() throws MalformedURLException {
 		setBounds(100, 100, 1091, 663);
 		setLocationRelativeTo(null);
         setResizable(false);
@@ -153,7 +146,7 @@ public class gui_Client_XLA_text extends JFrame {
 					}
 					 Image result = null;
 					try {
-						result = server_Controller.gray(url);
+						result = handleImageController.gray(url);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -199,7 +192,7 @@ public class gui_Client_XLA_text extends JFrame {
 					
 					Image result = null;
 					try {
-						result = server_Controller.resize(url, "small");
+						result = handleImageController.resize(url, "small");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
