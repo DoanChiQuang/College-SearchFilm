@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Model.model_Image;
-import Controller.HandleImageController;
+import Controllerr.HandleImageController;
 
 public class gui_Client_XLA_test extends JFrame {
 	
