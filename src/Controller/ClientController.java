@@ -21,16 +21,16 @@ public class ClientController {
     private DataOutputStream out         = null;
     protected String message_from_server = "";
     protected String message_to_server   = "";
+    private String ip                    = "127.0.0.1";
+    private int port                     = 5000;    
     
-    public ClientController(String ip, int port) {
+    public void connect() {
         try {
             socket = new Socket(ip, port);
             System.out.println("Connected!");
             
             in  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new DataOutputStream(socket.getOutputStream());
-            writeMessageToServer("bye");
-            closeConnect();
         }
         catch(IOException e) {
             System.out.println("Error: " + e);
@@ -52,15 +52,17 @@ public class ClientController {
     }
     
     public void writeMessageToServer(String message) {
-        try {
+        try {            
             System.out.println(message);
             if(!message.equals("") && message!=null) {
-                this.message_to_server = message;
-                out.writeBytes(message);
+                this.message_to_server = message;                
+                out.writeBytes(message_to_server + "\n");
+                out.flush();
             }
             else {
                 this.message_to_server = "null";
-                out.writeBytes("null");
+                out.writeBytes(message_to_server + "\n");
+                out.flush();
             }
         } 
         catch (IOException e) {
@@ -78,12 +80,4 @@ public class ClientController {
             System.out.println("Error: " + e);
         }
     }
-    
-    public void run() {
-        ClientController client = new ClientController("127.0.0.1", 5000);
-    }
-    
-//    public static void main(String[] args) {
-//        ClientController client = new ClientController("127.0.0.1", 5000);
-//    }
 }

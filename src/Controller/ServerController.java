@@ -35,7 +35,8 @@ public class ServerController {
             socket = server_socket.accept();
             System.out.println("Client accepted");
             
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));           
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new DataOutputStream(socket.getOutputStream());
             
             while(!message_from_client.equals("bye") && message_from_client!=null)
             {                
@@ -57,13 +58,5 @@ public class ServerController {
         {
             System.out.println("Error: " + e);
         }
-    }
- 
-    public void run() {
-        ServerController server = new ServerController(5000);
-    }
-    
-//    public static void main(String[] args) {
-//        ServerController server = new ServerController(5000);
-//    }
+    }        
 }
