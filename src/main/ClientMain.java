@@ -11,15 +11,14 @@ import View.Home_GUI;
  *
  * @author Chiquang
  */
-public class main {
+public class ClientMain {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Home_GUI hg = new Home_GUI();
-        hg.run();
+        new Home_GUI().run();
     }
     
 }
