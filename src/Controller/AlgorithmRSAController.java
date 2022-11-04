@@ -10,19 +10,21 @@ import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-public class En_Decrypt_RSA {
+public class AlgorithmRSAController {
 
-    public static final String PUBLIC_KEY_FILE = "./KEYRSA/publicKey.txt";
-    public static final String PRIVATE_KEY_FILE = "./KEYRSA/privateKey.txt";
+    public static String PUBLIC_KEY_FILE;
+    public static String PRIVATE_KEY_FILE;
 
     private KeyPairGenerator keyGen;
     private KeyPair pair;
     public static PrivateKey privateKey;
     public static PublicKey publicKey;
 
-    public En_Decrypt_RSA(int keylength) throws NoSuchAlgorithmException, NoSuchProviderException {
+    public AlgorithmRSAController(int keylength, String publicKeyFilePath, String privateKeyFilePath) throws NoSuchAlgorithmException, NoSuchProviderException {
         this.keyGen = KeyPairGenerator.getInstance("RSA");
         this.keyGen.initialize(keylength);
+        this.PUBLIC_KEY_FILE = publicKeyFilePath;
+        this.PRIVATE_KEY_FILE = privateKeyFilePath;
     }
 
     public void createKeys() {
@@ -49,26 +51,22 @@ public class En_Decrypt_RSA {
     }
 
     public void generateKeysToFile() {
-        try {
-            System.out.println("Starting generate...");
+        try {            
             this.createKeys();
             this.writeToFile(PUBLIC_KEY_FILE, this.getPublicKey().getEncoded());
-            this.writeToFile(PRIVATE_KEY_FILE, this.getPrivateKey().getEncoded());
-            System.out.println("Generated!");
+            this.writeToFile(PRIVATE_KEY_FILE, this.getPrivateKey().getEncoded());            
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
     
-    public static void main(String[] args) {    	
-        try {
-            new En_Decrypt_RSA(1024).generateKeysToFile();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+//    public static void main(String[] args) {    	
+//        try {
+//            new AlgorithmRSAController(1024).generateKeysToFile();            
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchProviderException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
