@@ -1,5 +1,13 @@
 package View;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Base64;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Chiquang
@@ -11,6 +19,25 @@ public class HandleImage_GUI extends javax.swing.JFrame {
     public HandleImage_GUI() {
         initComponents();
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+    }
+    
+    public void test(String path) {
+        try {
+            String encodedfile = null;
+            File file = new File(path);                
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            encodedfile = new String(Base64.getEncoder().encode(bytes));
+            System.out.println(encodedfile);
+
+//                byte[] test = Base64.getMimeDecoder().decode(encodedfile);
+//                FileUtils.writeByteArrayToFile(new File(".\\src\\assets\\image\\image_handled\\test.jpg"), test);                
+//                System.out.println(test);
+
+        } catch (Exception e) {
+            System.out.println("Error:" + e);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -184,7 +211,19 @@ public class HandleImage_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_back_btnActionPerformed
 
     private void chooseimage_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseimage_btnActionPerformed
-        home.client.writeMessageToServer("hello");
+        String path;
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image", "jpg", "gif", "png");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(HandleImage_GUI.this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            path = chooser.getCurrentDirectory()+"\\"+chooser.getSelectedFile().getName();
+            ImageIcon imageIcon = new ImageIcon(path);
+            Image image = imageIcon.getImage();
+            Image imageScale = image.getScaledInstance(image_handled.getWidth(), image_handled.getHeight(), Image.SCALE_SMOOTH);            
+            System.out.println(path);
+            image_handled.setIcon(new ImageIcon(imageScale));                        
+        }
     }//GEN-LAST:event_chooseimage_btnActionPerformed
 
     public void run() {        
