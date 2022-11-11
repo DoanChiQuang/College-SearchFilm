@@ -27,10 +27,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -180,6 +177,9 @@
             <Property name="text" type="java.lang.String" value="Chuy&#x1ec3;n &#x111;&#x1ed5;i &#x1ea3;nh"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changeimage_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="zipped_btn">
           <Properties>
@@ -195,6 +195,9 @@
             <Property name="text" type="java.lang.String" value="N&#xe9;n &#x1ea3;nh"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zipped_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="findsame_btn">
           <Properties>

@@ -1,11 +1,10 @@
 package View;
 
+import Controller.HandleImageController;
 import java.awt.Image;
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Base64;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -15,30 +14,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class HandleImage_GUI extends javax.swing.JFrame {
     
     public Home_GUI home = new Home_GUI();
+    public static String path   = "";
+    public HandleImageController handleImageController = new HandleImageController();
     
     public HandleImage_GUI() {
+        this.path = "";
         initComponents();
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-    }
-    
-    public void test(String path) {
-        try {
-            String encodedfile = null;
-            File file = new File(path);                
-            FileInputStream fileInputStreamReader = new FileInputStream(file);
-            byte[] bytes = new byte[(int)file.length()];
-            fileInputStreamReader.read(bytes);
-            encodedfile = new String(Base64.getEncoder().encode(bytes));
-            System.out.println(encodedfile);
-
-//                byte[] test = Base64.getMimeDecoder().decode(encodedfile);
-//                FileUtils.writeByteArrayToFile(new File(".\\src\\assets\\image\\image_handled\\test.jpg"), test);                
-//                System.out.println(test);
-
-        } catch (Exception e) {
-            System.out.println("Error:" + e);
-        }
-    }
+    }        
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -86,12 +69,22 @@ public class HandleImage_GUI extends javax.swing.JFrame {
         changeimage_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/image_setting.png"))); // NOI18N
         changeimage_btn.setText("Chuyển đổi ảnh");
         changeimage_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        changeimage_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeimage_btnActionPerformed(evt);
+            }
+        });
 
         zipped_btn.setBackground(new java.awt.Color(0, 153, 255));
         zipped_btn.setForeground(new java.awt.Color(255, 255, 255));
         zipped_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/zipper.png"))); // NOI18N
         zipped_btn.setText("Nén ảnh");
         zipped_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        zipped_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zipped_btnActionPerformed(evt);
+            }
+        });
 
         findsame_btn.setBackground(new java.awt.Color(0, 153, 255));
         findsame_btn.setForeground(new java.awt.Color(255, 255, 255));
@@ -189,9 +182,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,11 +211,24 @@ public class HandleImage_GUI extends javax.swing.JFrame {
             path = chooser.getCurrentDirectory()+"\\"+chooser.getSelectedFile().getName();
             ImageIcon imageIcon = new ImageIcon(path);
             Image image = imageIcon.getImage();
-            Image imageScale = image.getScaledInstance(image_handled.getWidth(), image_handled.getHeight(), Image.SCALE_SMOOTH);            
-            System.out.println(path);
-            image_handled.setIcon(new ImageIcon(imageScale));                        
+            Image imageScale = image.getScaledInstance(image_handled.getWidth(), image_handled.getHeight(), Image.SCALE_SMOOTH);
+            image_handled.setIcon(new ImageIcon(imageScale));
+            this.path = path;
         }
     }//GEN-LAST:event_chooseimage_btnActionPerformed
+
+    private void zipped_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zipped_btnActionPerformed
+                
+    }//GEN-LAST:event_zipped_btnActionPerformed
+
+    private void changeimage_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeimage_btnActionPerformed
+        if(!path.equals("")) {            
+            new FormatChangeExtension_GUI().run();            
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please choose your image!");
+        }
+    }//GEN-LAST:event_changeimage_btnActionPerformed
 
     public void run() {        
         java.awt.EventQueue.invokeLater(new Runnable() {

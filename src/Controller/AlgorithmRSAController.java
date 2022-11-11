@@ -12,19 +12,17 @@ import java.security.PublicKey;
 
 public class AlgorithmRSAController {
 
-    public static String PUBLIC_KEY_FILE;
-    public static String PRIVATE_KEY_FILE;
+    public static String PUBLIC_KEY_FILE    = "./KEYRSA/publicKey.txt";
+    public static String PRIVATE_KEY_FILE   = "./KEYRSA/privateKey.txt";
 
     private KeyPairGenerator keyGen;
     private KeyPair pair;
     public static PrivateKey privateKey;
     public static PublicKey publicKey;
 
-    public AlgorithmRSAController(int keylength, String publicKeyFilePath, String privateKeyFilePath) throws NoSuchAlgorithmException, NoSuchProviderException {
+    public AlgorithmRSAController(int keylength) throws NoSuchAlgorithmException, NoSuchProviderException {
         this.keyGen = KeyPairGenerator.getInstance("RSA");
-        this.keyGen.initialize(keylength);
-        this.PUBLIC_KEY_FILE = publicKeyFilePath;
-        this.PRIVATE_KEY_FILE = privateKeyFilePath;
+        this.keyGen.initialize(keylength);        
     }
 
     public void createKeys() {
@@ -59,6 +57,7 @@ public class AlgorithmRSAController {
             System.err.println(e.getMessage());
         }
     }
+    
     
 //    public static void main(String[] args) {    	
 //        try {
