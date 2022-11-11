@@ -6,6 +6,8 @@
 package Controller;
 
 import Model.AlgorithmRSAModel;
+import View.ErrorAlert_GUI;
+import View.SuccessAlert_GUI;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,29 +28,20 @@ public class ClientController {
     protected String message_from_server    = "";
     protected String message_to_server      = "";
     private String ip                       = "127.0.0.1";
-    private int port                        = 5000;    
-    public static String PUBLIC_KEY_FILE    = "./KEYRSA/publicKeyClient.txt";
-    public static String PRIVATE_KEY_FILE   = "./KEYRSA/privateKeyClient.txt";     
-    public AlgorithmRSAModel algorithmRSAModel              = null;
-    public AlgorithmRSAController algorithmRSAController    = null;
+    private int port                        = 5000;
+    private AlgorithmAESController aes;
+    private String key;  
+    public HandleImageController handleImageController = new HandleImageController();
+    
     public void connect() {
         try {
             socket = new Socket(ip, port);
             System.out.println("Connected!");                      
             
             in  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new DataOutputStream(socket.getOutputStream());
+            out = new DataOutputStream(socket.getOutputStream());                        
             
-            // Generate keys
-            System.out.println("Server generating keys...");            
-            algorithmRSAController = new AlgorithmRSAController(1024, PUBLIC_KEY_FILE, PRIVATE_KEY_FILE);
-            algorithmRSAController.generateKeysToFile();            
-            System.out.println("Server generated...");            
-            // Send and receive public key to server
-            sendPublicKeyToServer(algorithmRSAController.getPublicKey().getEncoded());
-            receivePublicKeyFromServer(in.readLine());
-            
-            algorithmRSAModel = new AlgorithmRSAModel();
+            handShakeSSL();
         }
         catch(IOException e) {
             System.out.println("Error: " + e);
@@ -57,10 +50,50 @@ public class ClientController {
         }
     }
     
-    public void readMessageFromServer (String message) {
+    public void handleImage(String status, String message, String extension) {       
+        if(status.equals("Success")) {
+            handleImageController.saveFile(message, extension, "image_client");
+            new SuccessAlert_GUI().run();
+        }
+        else if(status.equals("Error")) {                       
+            new ErrorAlert_GUI().run();
+        }        
+    }
+    
+    public void handShakeSSL() {
         try {
-            if(!message.equals("") && message!=null) {
-                this.message_from_server = message;
+            // Request to handshake ssl
+            out.writeBytes("start" + "\n");
+            out.flush();
+
+            // Receive and save public key from server
+            String publicKey = in.readLine();
+            AlgorithmRSAModel rsa = new AlgorithmRSAModel();
+            rsa.setPublicKey(publicKey);
+            
+            // Send secret key to server by encrypt with public key
+            aes = new AlgorithmAESController();
+            this.key = aes.createKey();            
+            String encodeKey = rsa.encrypt(aes.mykey);
+            out.writeBytes(encodeKey + "\n");
+            out.flush();
+            System.out.println("Successfully handshake ssl: " + key);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }        
+    }
+    
+    public void readMessageFromServer () {
+        try {
+            String message = in.readLine();
+            String decodeMessage = aes.decrypt_String(message, key);
+            if(!decodeMessage.equals("") && !decodeMessage.equals("null")) {
+                String temp[] = decodeMessage.split(";");
+                String type = temp[3];
+                if(type.equals("image")) {
+                    handleImage(temp[0], temp[1], temp[2]);
+                }
+                this.message_from_server = decodeMessage;
             }
             else {
                 this.message_from_server = "null";
@@ -69,18 +102,19 @@ public class ClientController {
         catch (Exception e) {
             System.out.println("Error: " + e);
         }
-    }
+    }    
     
     public void writeMessageToServer(String message) {
         try {                               
             if(!message.equals("") && message!=null) {                
-                this.message_to_server = algorithmRSAModel.encrypt(message);
-                System.out.println(message_to_server);
+                this.message_to_server = aes.encrypt_String(message, key);
+                System.out.println("Client say: " + message_to_server);
                 out.writeBytes(message_to_server + "\n");
                 out.flush();                
             }
             else {                
-                this.message_to_server = algorithmRSAModel.encrypt("null");
+                this.message_to_server = aes.encrypt_String("null", key);
+                System.out.println("Client say: " + message_to_server);
                 out.writeBytes(message_to_server + "\n");
                 out.flush();
             }
@@ -88,25 +122,6 @@ public class ClientController {
         catch (IOException e) {
             System.out.println("Error: " + e);
         } catch (Exception ex) {
-            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void receivePublicKeyFromServer(String message) {                                    
-        try {
-            byte[] bytes = Base64.getDecoder().decode(message);
-            algorithmRSAController.writeToFile(PUBLIC_KEY_FILE, bytes);
-        } catch (IOException ex) {
-            Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void sendPublicKeyToServer(byte[] bytes) {
-        try {            
-            String message = Base64.getEncoder().encodeToString(bytes);
-            out.writeBytes(message + "\n");
-            out.flush();
-        } catch (IOException ex) {
             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

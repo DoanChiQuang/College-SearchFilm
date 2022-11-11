@@ -6,7 +6,6 @@
 package View;
 
 import Controller.ClientController;
-import java.awt.Color;
 
 /**
  *
@@ -51,8 +50,6 @@ public class Home_GUI extends javax.swing.JFrame {
         Header.setMaximumSize(new java.awt.Dimension(1000, 91));
         Header.setPreferredSize(new java.awt.Dimension(1000, 91));
 
-        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Chiquang\\Documents\\NetBeansProjects\\SearchFilmApp\\src\\assets\\image\\logo.png")); // NOI18N
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 255));
         jLabel1.setText("MOVIE");
@@ -72,7 +69,7 @@ public class Home_GUI extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addContainerGap(403, Short.MAX_VALUE))
+                .addContainerGap(467, Short.MAX_VALUE))
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +136,7 @@ public class Home_GUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Body, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Body, javax.swing.GroupLayout.PREFERRED_SIZE, 382, Short.MAX_VALUE)
         );
 
         pack();
@@ -156,7 +153,7 @@ public class Home_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_search_btnActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        client.writeMessageToServer("bye");
+        client.writeMessageToServer("bye;bye;null;null");
     }//GEN-LAST:event_formWindowClosing
 
     public void run() {

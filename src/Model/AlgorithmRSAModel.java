@@ -12,6 +12,8 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import java.security.interfaces.RSAPrivateKey;
 import Controller.AlgorithmRSAController;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 
 public class AlgorithmRSAModel {
@@ -70,9 +72,21 @@ public class AlgorithmRSAModel {
         return decrypted;
     }
     
-    public void setPublicKey() {
-        
+    public void setPublicKey(String input){    	
+        try {
+            byte[] byte_key = Base64.getDecoder().decode(input);
+            KeyFactory factory;
+            factory = KeyFactory.getInstance("RSA");
+            PublicKey public_key;
+            public_key = (PublicKey) factory.generatePublic(new X509EncodedKeySpec(byte_key));
+            this.publickey = public_key;
+        } catch (InvalidKeySpecException e) {                
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {            
+            e.printStackTrace();
+        }    	
     }
+    
     
 //    public static void main(String[] args) throws Exception {
 //        AlgorithmRSAModel a = new AlgorithmRSAModel();
