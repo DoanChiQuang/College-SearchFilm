@@ -63,7 +63,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="findsame_btn" max="32767" attributes="0"/>
-                              <Component id="zipped_btn" alignment="0" max="32767" attributes="0"/>
+                              <Component id="compress_btn" alignment="0" max="32767" attributes="0"/>
                               <Component id="changeimage_btn" alignment="0" max="32767" attributes="0"/>
                               <Component id="zoom_btn" alignment="0" max="32767" attributes="0"/>
                               <Component id="grayscale_btn" alignment="0" max="32767" attributes="0"/>
@@ -85,10 +85,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="zipped_btn" min="-2" max="-2" attributes="0"/>
+                          <Component id="compress_btn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="changeimage_btn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -102,7 +102,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="back_btn" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="image_handled" max="32767" attributes="0"/>
+                      <Component id="image_handled" pref="290" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="chooseimage_btn" min="-2" max="-2" attributes="0"/>
@@ -147,6 +147,9 @@
             <Property name="text" type="java.lang.String" value="Ph&#xf3;ng to/Thu nh&#x1ecf;"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zoom_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="grayscale_btn">
           <Properties>
@@ -162,6 +165,9 @@
             <Property name="text" type="java.lang.String" value="Grayscale"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="grayscale_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="changeimage_btn">
           <Properties>
@@ -181,7 +187,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changeimage_btnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="zipped_btn">
+        <Component class="javax.swing.JButton" name="compress_btn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="99" red="0" type="rgb"/>
@@ -196,7 +202,7 @@
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="zipped_btnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="compress_btnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="findsame_btn">
@@ -213,6 +219,9 @@
             <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m &#x1ea3;nh"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="findsame_btnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="identify_btn">
           <Properties>

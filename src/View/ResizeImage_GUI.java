@@ -6,18 +6,20 @@
 package View;
 
 import Controller.HandleImageController;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Chiquang
  */
-public class FormatChangeExtension_GUI extends javax.swing.JFrame {
-
+public class ResizeImage_GUI extends javax.swing.JFrame {
     public HandleImageController handleImageController = new HandleImageController();
     /**
-     * Creates new form Format_GUI
+     * Creates new form ResizeImage_GUI
      */
-    public FormatChangeExtension_GUI() {
+    public ResizeImage_GUI() {
         initComponents();
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
     }
@@ -33,10 +35,9 @@ public class FormatChangeExtension_GUI extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        pngBtn = new javax.swing.JButton();
-        jpgBtn = new javax.swing.JButton();
-        tifBtn = new javax.swing.JButton();
-        gifBtn = new javax.swing.JButton();
+        smallBtn = new javax.swing.JButton();
+        mediumBtn = new javax.swing.JButton();
+        largeBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,39 +50,30 @@ public class FormatChangeExtension_GUI extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 153, 255));
         jLabel1.setText("Choose file extension type");
 
-        pngBtn.setBackground(new java.awt.Color(51, 51, 255));
-        pngBtn.setForeground(new java.awt.Color(255, 255, 255));
-        pngBtn.setText("PNG");
-        pngBtn.addActionListener(new java.awt.event.ActionListener() {
+        smallBtn.setBackground(new java.awt.Color(51, 51, 255));
+        smallBtn.setForeground(new java.awt.Color(255, 255, 255));
+        smallBtn.setText("Small");
+        smallBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pngBtnActionPerformed(evt);
+                smallBtnActionPerformed(evt);
             }
         });
 
-        jpgBtn.setBackground(new java.awt.Color(51, 51, 255));
-        jpgBtn.setForeground(new java.awt.Color(255, 255, 255));
-        jpgBtn.setText("JPG");
-        jpgBtn.addActionListener(new java.awt.event.ActionListener() {
+        mediumBtn.setBackground(new java.awt.Color(51, 51, 255));
+        mediumBtn.setForeground(new java.awt.Color(255, 255, 255));
+        mediumBtn.setText("Medium");
+        mediumBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jpgBtnActionPerformed(evt);
+                mediumBtnActionPerformed(evt);
             }
         });
 
-        tifBtn.setBackground(new java.awt.Color(51, 51, 255));
-        tifBtn.setForeground(new java.awt.Color(255, 255, 255));
-        tifBtn.setText("TIF");
-        tifBtn.addActionListener(new java.awt.event.ActionListener() {
+        largeBtn.setBackground(new java.awt.Color(51, 51, 255));
+        largeBtn.setForeground(new java.awt.Color(255, 255, 255));
+        largeBtn.setText("Large");
+        largeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tifBtnActionPerformed(evt);
-            }
-        });
-
-        gifBtn.setBackground(new java.awt.Color(51, 51, 255));
-        gifBtn.setForeground(new java.awt.Color(255, 255, 255));
-        gifBtn.setText("GIF");
-        gifBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gifBtnActionPerformed(evt);
+                largeBtnActionPerformed(evt);
             }
         });
 
@@ -99,46 +91,40 @@ public class FormatChangeExtension_GUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(pngBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jpgBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tifBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(gifBtn)))
-                .addContainerGap(65, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(backBtn)
-                .addGap(151, 151, 151))
+                        .addGap(10, 10, 10)
+                        .addComponent(smallBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(backBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(mediumBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(largeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pngBtn)
-                    .addComponent(jpgBtn)
-                    .addComponent(tifBtn)
-                    .addComponent(gifBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addComponent(smallBtn)
+                    .addComponent(mediumBtn)
+                    .addComponent(largeBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(backBtn)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,65 +134,57 @@ public class FormatChangeExtension_GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+    private void smallBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smallBtnActionPerformed
+        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+        String message = encode + ";zoom;" + extension + ";small";
+        Home_GUI.client.writeMessageToServer(message);
+        Home_GUI.client.readMessageFromServer();
+        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
+        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
         this.dispose();
+    }//GEN-LAST:event_smallBtnActionPerformed
+
+    private void mediumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediumBtnActionPerformed
+        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+        String message = encode + ";zoom;" + extension + ";medium";
+        Home_GUI.client.writeMessageToServer(message);
+        Home_GUI.client.readMessageFromServer();
+        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
+        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
+        this.dispose();
+    }//GEN-LAST:event_mediumBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        this.dispose();       
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void pngBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pngBtnActionPerformed
+    private void largeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeBtnActionPerformed
         String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
         String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";changeextension;" + extension + ";png";
+        String message = encode + ";zoom;" + extension + ";large";
         Home_GUI.client.writeMessageToServer(message);
         Home_GUI.client.readMessageFromServer();
+        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
+        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
         this.dispose();
-    }//GEN-LAST:event_pngBtnActionPerformed
-
-    private void jpgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpgBtnActionPerformed
-        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
-        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";changeextension;" + extension + ";jpg";
-        Home_GUI.client.writeMessageToServer(message);
-        Home_GUI.client.readMessageFromServer();
-        this.dispose();
-    }//GEN-LAST:event_jpgBtnActionPerformed
-
-    private void tifBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tifBtnActionPerformed
-        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
-        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";changeextension;" + extension + ";tif";
-        Home_GUI.client.writeMessageToServer(message);
-        Home_GUI.client.readMessageFromServer();
-        this.dispose();
-    }//GEN-LAST:event_tifBtnActionPerformed
-
-    private void gifBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gifBtnActionPerformed
-        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
-        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";changeextension;" + extension + ";gif";
-        Home_GUI.client.writeMessageToServer(message);
-        Home_GUI.client.readMessageFromServer();
-        this.dispose();
-    }//GEN-LAST:event_gifBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    }//GEN-LAST:event_largeBtnActionPerformed
     
     public void run() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormatChangeExtension_GUI().setVisible(true);
+                new ResizeImage_GUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton gifBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jpgBtn;
-    private javax.swing.JButton pngBtn;
-    private javax.swing.JButton tifBtn;
+    private javax.swing.JButton largeBtn;
+    private javax.swing.JButton mediumBtn;
+    private javax.swing.JButton smallBtn;
     // End of variables declaration//GEN-END:variables
 }

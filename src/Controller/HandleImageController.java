@@ -8,40 +8,53 @@ package Controller;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.io.FileSaver;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HandleImageController {
     
-    public String handleImage(String path, String action, String extension, String option, String folderName) {
+    public String handleImage(String path, String action, String extension, String option, String folderName) throws IOException, JSONException {
         String pathName = saveFile(path, extension, folderName);
         String newPath = "";
         if(!pathName.equals("")) {
             switch(action) {
-                case "zip":
-                    // code block
-                    break;            
-                case "changeextension":                                        
+                case "compress":
+                    newPath = compress(pathName);
+                    return newPath;
+                case "changeextension":
                     newPath = formatFileToNewFile(pathName, option);
                     return newPath;
                 case "zoom":
-                    // code block
-                    break;                        
+                    newPath = zoom(pathName, option);
+                    return newPath;
+                case "gray":
+                    newPath = grayScale(pathName);
+                    return newPath;
+                case "sameimage":
+                    URL url = new File("C:\\Users\\Chiquang\\Documents\\NetBeansProjects\\SearchFilmApp\\src\\assets\\image_server\\film_DemonSlayer.jpg").toURI().toURL();
+                    JSONObject json = APIController.getSameImage(url);
+                    System.out.println(String.valueOf(json));
                 default:
-                    // code block
+                    return "Error;null";
             }
         }
         else {
             System.out.println("File null!");
         }
-        return newPath;
+        return "Error;null";
     }
     // Lấy đuôi file
     public String getExtensionFile(String path){
@@ -62,12 +75,13 @@ public class HandleImageController {
             }
         }        
         return s;
-    }
-    
+    }    
     // Chuyển đổi hình ảnh
     public String formatFileToNewFile(String path, String extensionType){
         String s = "";
         if(this.getExtensionFile(path).equals(extensionType)) {
+            File file = new File(path);
+            file.delete();
             return "Error;Lỗi trùng đuôi file!";
         }
         else {
@@ -88,65 +102,55 @@ public class HandleImageController {
                 deleteFile.delete();
                 return "Success;" + newPath;
             }
-            catch(Exception ex) {
-                System.out.println("Error;Lỗi! Không lưu được ảnh!");
+            catch(Exception ex) {                
+                File file = new File(path);
+                file.delete();
                 return "Error;Lỗi không lưu được file!";
             }
         }        
     }
     
-//    public String Compress(String pathInput){                        
-//        ImagePlus img = IJ.openImage(pathInput);                                
-//        FileSaver file = new FileSaver(img);
-//        file.setJpegQuality(10);
-//        
-//        try{
-//            file.saveAsJpeg(path_save);
-//        }catch(Exception ex){
-//            System.out.print("Khong tim thay folder luu anh compress");
-//        }	        
-//            if(type_file(pathInput).equals("png"))
-//            {		        	
-//                    try{
-//                        file.saveAsJpeg(path_save);
-//                        System.out.println("Da nen vao folder: ");
-//                        return path_save;
-//                        }catch(Exception ex){
-//                            System.out.print("Khong tim thay folder luu anh compress");
-//                        }
-//            }
-//            if(type_file(pathInput).equals("jpg"))
-//            {		        	
-//                    try{
-//                        file.saveAsJpeg(path_save);
-//                        System.out.println("Da nen vao folder: ");
-//                        return path_save;
-//                        }catch(Exception ex){
-//                            System.out.print("Khong tim thay folder luu anh compress");
-//                        }
-//            }
-//            if(type_file(pathInput).equals("tif"))
-//            {		        	
-//                    try{
-//                        file.saveAsJpeg(path_save);
-//                        System.out.println("Da nen vao folder: ");
-//                        return path_save;
-//                        }catch(Exception ex){
-//                            System.out.print("Khong tim thay folder luu anh compress");
-//                        }
-//            }
-//            if(type_file(pathInput).equals("gif"))
-//            {		        	
-//                    try{
-//                        file.saveAsJpeg(path_save);
-//                        System.out.println("Da nen vao folder: ");
-//                        return path_save;
-//                        }catch(Exception ex){
-//                            System.out.print("Khong tim thay folder luu anh compress");
-//                        }
-//            }
-//            return "khong co path_save";		        			      	
-//    }
+    public String compress(String path) {
+        ImagePlus img = IJ.openImage(path);
+        FileSaver file = new FileSaver(img);
+        file.setJpegQuality(10);
+        String ext = getExtensionFile(path);
+        String path_save = "";
+        for(int i=path.length()-1; i>=0; i--) {
+            if(path.charAt(i)=='.') {
+                for(int j=0; j<i; j++){
+                    path_save+=String.valueOf(path.charAt(j));
+                }
+            }
+        }
+        path_save = path_save + "." + ext;
+        try {
+            if(ext.equals("png"))
+            {
+                file.saveAsJpeg(path_save);
+                return "Success;" + path_save;
+            }
+            if(ext.equals("jpg"))
+            {		        	                    
+                file.saveAsJpeg(path_save);
+                return "Success;" + path_save;
+            }
+            if(ext.equals("tif"))
+            {		        	                    
+                file.saveAsJpeg(path_save);                        
+                return "Success;" + path_save;
+            }
+            if(ext.equals("gif"))
+            {		        	
+                file.saveAsJpeg(path_save);                        
+                return "Success;" + path_save;
+            }
+        } 
+        catch (Exception e) {
+            return "Error;Lỗi không lưu được file!";
+        }
+        return "Error;Lỗi không lưu được file";
+    }
     
     public String saveFile(String path, String extensionType, String folderName) {
         String newPath = "";
@@ -157,11 +161,77 @@ public class HandleImageController {
             String formattedDate = myDateObj.format(myFormatObj);
             System.out.println("Date: " + formattedDate);
             newPath = ".\\src\\assets\\" + folderName +"\\" + formattedDate + "." + extensionType;
-            FileUtils.writeByteArrayToFile(new File(newPath), bytes);            
+            FileUtils.writeByteArrayToFile(new File(newPath), bytes);
         } catch (IOException ex) {
             Logger.getLogger(HandleImageController.class.getName()).log(Level.SEVERE, null, ex);
         }        
         return newPath;
+    }
+    
+    public String zoom(String path, String type) throws IOException {        
+        String ext = getExtensionFile(path);
+        BufferedImage originalImage = ImageIO.read(new File(path));
+        int height = originalImage.getHeight();
+        int width = originalImage.getWidth();
+        System.out.println(path);
+        if(type.equals("small")) {
+            while(width>100) width -= 50;
+            while(height>100) height -= 50;
+            BufferedImage resizeImageJpg = resizeImage(originalImage, width, height);
+            ImageIO.write(resizeImageJpg, ext, new File(path));
+            return "Success;" + path;
+        }
+        if(type.equals("medium")) {            
+            BufferedImage resizeImageJpg = resizeImage(originalImage, originalImage.getWidth(), originalImage.getHeight());
+            ImageIO.write(resizeImageJpg, ext, new File(path));
+            return "Success;" + path;
+        }
+        if(type.equals("large")) {
+            if(height < 150) height = height + 100;
+            if(width < 150) width = width + 100;
+            BufferedImage resizeImageJpg = resizeImage(originalImage, originalImage.getWidth()+200, originalImage.getHeight()+200);
+            ImageIO.write(resizeImageJpg, ext, new File(path));
+            return "Success;" + path;
+        }
+        return "Error;Lỗi không xử lý được hình ảnh!";
+    }
+    
+    public String grayScale(String path) {
+        try {                   
+            String ext = getExtensionFile(path);
+            BufferedImage originalImage = ImageIO.read(new File(path));
+            int height = originalImage.getHeight();
+            int width = originalImage.getWidth();        
+            for (int y = 0; y < height; y++) { 
+                for (int x = 0; x < width; x++) {                 
+                    int p = originalImage.getRGB(x, y); 
+                    int a = (p >> 24) & 0xff; 
+                    int r = (p >> 16) & 0xff; 
+                    int g = (p >> 8) & 0xff; 
+                    int b = p & 0xff; 
+
+                    int avg = (r + g + b) / 3; 
+
+                    p = (a << 24) | (avg << 16) | (avg << 8) 
+                        | avg; 
+
+                    originalImage.setRGB(x, y, p);
+                }
+            }
+            ImageIO.write(originalImage, ext, new File(path));
+            return "Success;" + path;
+        }
+        catch (Exception e) {
+            return "Error;Lỗi không xử lý được hình ảnh!";
+        }
+    }
+    
+    public static BufferedImage resizeImage(BufferedImage originalImage, int IMG_WIDTH, int IMG_HEIGHT) {
+        BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+        g.dispose();
+        return resizedImage;
     }
     
     public String convertFileToString(String path) {

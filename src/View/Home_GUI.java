@@ -6,6 +6,8 @@
 package View;
 
 import Controller.ClientController;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  *
@@ -17,6 +19,8 @@ public class Home_GUI extends javax.swing.JFrame {
     
     public Home_GUI() {
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, 100);
     }
     
     @SuppressWarnings("unchecked")
@@ -149,17 +153,18 @@ public class Home_GUI extends javax.swing.JFrame {
 
     private void search_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_btnActionPerformed
         this.dispose();
-        new SearchFilm_GUI().run();
+        new HomeSearchFilm_GUI().run();
     }//GEN-LAST:event_search_btnActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         client.writeMessageToServer("bye;bye;null;null");
+        client.closeConnect();
     }//GEN-LAST:event_formWindowClosing
 
     public void run() {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home_GUI().setVisible(true);
+                new Home_GUI().setVisible(true);                
                 if(client == null) {
                     client = new ClientController();
                     client.connect();
