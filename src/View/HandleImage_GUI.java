@@ -1,7 +1,9 @@
 package View;
 
 import Controller.HandleImageController;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -20,6 +22,8 @@ public class HandleImage_GUI extends javax.swing.JFrame {
     public HandleImage_GUI() {
         this.path = "";
         initComponents();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, 100);
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
     }        
 
@@ -33,7 +37,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
         zoom_btn = new javax.swing.JButton();
         grayscale_btn = new javax.swing.JButton();
         changeimage_btn = new javax.swing.JButton();
-        zipped_btn = new javax.swing.JButton();
+        compress_btn = new javax.swing.JButton();
         findsame_btn = new javax.swing.JButton();
         identify_btn = new javax.swing.JButton();
         back_btn = new javax.swing.JButton();
@@ -57,12 +61,22 @@ public class HandleImage_GUI extends javax.swing.JFrame {
         zoom_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/zoom.png"))); // NOI18N
         zoom_btn.setText("Phóng to/Thu nhỏ");
         zoom_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        zoom_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoom_btnActionPerformed(evt);
+            }
+        });
 
         grayscale_btn.setBackground(new java.awt.Color(0, 153, 255));
         grayscale_btn.setForeground(new java.awt.Color(255, 255, 255));
         grayscale_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/grayscale.png"))); // NOI18N
         grayscale_btn.setText("Grayscale");
         grayscale_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        grayscale_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grayscale_btnActionPerformed(evt);
+            }
+        });
 
         changeimage_btn.setBackground(new java.awt.Color(0, 153, 255));
         changeimage_btn.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,14 +89,14 @@ public class HandleImage_GUI extends javax.swing.JFrame {
             }
         });
 
-        zipped_btn.setBackground(new java.awt.Color(0, 153, 255));
-        zipped_btn.setForeground(new java.awt.Color(255, 255, 255));
-        zipped_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/zipper.png"))); // NOI18N
-        zipped_btn.setText("Nén ảnh");
-        zipped_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        zipped_btn.addActionListener(new java.awt.event.ActionListener() {
+        compress_btn.setBackground(new java.awt.Color(0, 153, 255));
+        compress_btn.setForeground(new java.awt.Color(255, 255, 255));
+        compress_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/zipper.png"))); // NOI18N
+        compress_btn.setText("Nén ảnh");
+        compress_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        compress_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zipped_btnActionPerformed(evt);
+                compress_btnActionPerformed(evt);
             }
         });
 
@@ -91,6 +105,11 @@ public class HandleImage_GUI extends javax.swing.JFrame {
         findsame_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icon/search_white.png"))); // NOI18N
         findsame_btn.setText("Tìm kiếm ảnh");
         findsame_btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        findsame_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findsame_btnActionPerformed(evt);
+            }
+        });
 
         identify_btn.setBackground(new java.awt.Color(0, 153, 255));
         identify_btn.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,7 +159,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(findsame_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(zipped_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(compress_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(changeimage_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(zoom_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(grayscale_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -156,10 +175,10 @@ public class HandleImage_GUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(zipped_btn)
+                        .addComponent(compress_btn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(changeimage_btn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,7 +191,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
                         .addComponent(identify_btn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(back_btn))
-                    .addComponent(image_handled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(image_handled, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chooseimage_btn)
                 .addContainerGap(62, Short.MAX_VALUE))
@@ -208,27 +227,83 @@ public class HandleImage_GUI extends javax.swing.JFrame {
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(HandleImage_GUI.this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
+            //290 234
             path = chooser.getCurrentDirectory()+"\\"+chooser.getSelectedFile().getName();
             ImageIcon imageIcon = new ImageIcon(path);
             Image image = imageIcon.getImage();
             Image imageScale = image.getScaledInstance(image_handled.getWidth(), image_handled.getHeight(), Image.SCALE_SMOOTH);
-            image_handled.setIcon(new ImageIcon(imageScale));
+            image_handled.setIcon(new ImageIcon(image));
             this.path = path;
         }
     }//GEN-LAST:event_chooseimage_btnActionPerformed
 
-    private void zipped_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zipped_btnActionPerformed
-                
-    }//GEN-LAST:event_zipped_btnActionPerformed
+    private void compress_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compress_btnActionPerformed
+        if(!path.equals("")) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure to compress this file?", "Message", JOptionPane.YES_NO_OPTION);            
+            if(result==0) {
+                String encode = handleImageController.convertFileToString(this.path);
+                String extension = handleImageController.getExtensionFile(this.path);
+                String message = encode + ";compress;" + extension + ";null";
+                Home_GUI.client.writeMessageToServer(message);
+                Home_GUI.client.readMessageFromServer();                
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please choose your image!");
+        }   
+    }//GEN-LAST:event_compress_btnActionPerformed
 
     private void changeimage_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeimage_btnActionPerformed
         if(!path.equals("")) {            
-            new FormatChangeExtension_GUI().run();            
+            new FormatChangeExtension_GUI().run();
         }
         else {
             JOptionPane.showMessageDialog(this, "Please choose your image!");
         }
     }//GEN-LAST:event_changeimage_btnActionPerformed
+
+    private void zoom_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoom_btnActionPerformed
+        if(!path.equals("")) {            
+            new ResizeImage_GUI().run();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please choose your image!");
+        }
+    }//GEN-LAST:event_zoom_btnActionPerformed
+
+    private void grayscale_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grayscale_btnActionPerformed
+        if(!path.equals("")) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure to compress this file?", "Message", JOptionPane.YES_NO_OPTION);            
+            if(result==0) {
+                String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+                String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+                String message = encode + ";gray;" + extension + ";null";
+                Home_GUI.client.writeMessageToServer(message);
+                Home_GUI.client.readMessageFromServer();
+                ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);
+                JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);       
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please choose your image!");
+        }        
+    }//GEN-LAST:event_grayscale_btnActionPerformed
+
+    private void findsame_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findsame_btnActionPerformed
+        if(!path.equals("")) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure to compress this file?", "Message", JOptionPane.YES_NO_OPTION);            
+            if(result==0) {
+                String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+                String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+                String message = encode + ";sameimage;" + extension + ";null";
+                Home_GUI.client.writeMessageToServer(message);
+                Home_GUI.client.readMessageFromServer();
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please choose your image!");
+        }
+    }//GEN-LAST:event_findsame_btnActionPerformed
 
     public void run() {        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -242,13 +317,13 @@ public class HandleImage_GUI extends javax.swing.JFrame {
     private javax.swing.JButton back_btn;
     private javax.swing.JButton changeimage_btn;
     private javax.swing.JButton chooseimage_btn;
+    private javax.swing.JButton compress_btn;
     private javax.swing.JButton findsame_btn;
     private javax.swing.JButton grayscale_btn;
     private javax.swing.JButton identify_btn;
     private javax.swing.JLabel image_handled;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton zipped_btn;
     private javax.swing.JButton zoom_btn;
     // End of variables declaration//GEN-END:variables
 }

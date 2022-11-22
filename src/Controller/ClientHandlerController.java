@@ -10,19 +10,14 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Chiquang
  */
-public class ServerController {
-    private Socket socket                           = null;
-    private ServerSocket server_socket              = null;
+public class ClientHandlerController extends Thread {
+    private Socket socket                           = null;    
     private BufferedReader in                       = null;
     private DataOutputStream out                    = null;
     protected String message_from_client            = "";
@@ -33,26 +28,20 @@ public class ServerController {
     AlgorithmRSAModel algorithmRSAModel             = null;
     AlgorithmRSAController algorithmRSAController   = null;
     private AlgorithmAESController aes;	
-    private HandleImageController handleImageController;
+    private HandleImageController handleImageController;    
      
-    public ServerController(int port)
-    {        
-        try
-        {
-            server_socket = new ServerSocket(port);
-            System.out.println("Server started"); 
-            System.out.println("Waiting for a client ...");
- 
-            socket = server_socket.accept();
-            System.out.println("Client accepted");
-            System.out.println("----------------------------------------------");
-            
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new DataOutputStream(socket.getOutputStream());
-            
+    public ClientHandlerController(Socket socket, BufferedReader in, DataOutputStream out) {
+        this.socket = socket;
+        this.in = in;
+        this.out = out;
+    }
+    
+    @Override
+    public void run() {
+        try {                    
             handShakeSSL();
-                                    
-            while(!message_from_client.equals("bye") && message_from_client!=null)
+
+            while(!action.equals("bye"))
             {
                 try {
                     handleImageController = new HandleImageController();
@@ -61,14 +50,19 @@ public class ServerController {
                     System.out.println("Action: " + action);
                     System.out.println("Extension: " + extension);
                     System.out.println("Option: " + option);
-                    if(!extension.equals("null") && !option.equals("null")) {
+                    if(!extension.equals("null")) {
                         // Handle image
                         String result = handleImageController.handleImage(message_from_client, action, extension, option, "image_server");
                         System.out.println("Xử lý ảnh: " + result);
                         handelResultImage(result);
                     }
                     else {
-                        // Search film
+                        if(!action.equals("bye")) {
+                            // Handle search film
+                            String result = APIController.handleCallAPI(message_from_client,option);                        
+                            System.out.println("Xử lý phim: " + result);
+                            handleResultSearch(result);
+                        }                        
                     }
                 }
                 catch (Exception e) {
@@ -76,16 +70,13 @@ public class ServerController {
                 }
             }
             System.out.println("Closing connection");
- 
+
             // Close connection
             socket.close();
-            in.close();
-        }
-        catch(IOException e)
-        {
+            in.close();               
+        } 
+        catch (Exception e) {
             System.out.println("Error: " + e);
-        } catch (Exception ex) {
-            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }       
     
@@ -133,10 +124,20 @@ public class ServerController {
             deleteFile.delete();
         }
         else if(status.equals("Error")) {
-            
+            writeMessageToClient(result + ";null;image");
         }
-        else {
-            
+    }
+    
+    public void handleResultSearch(String result) {
+        String temp[] = result.split(";");
+        String status = temp[0];
+        String jsonString = temp[1];
+        if(status.equals("Success")) {            
+            String message = status + ";" + jsonString + ";null;search";
+            writeMessageToClient(message);
+        }
+        else if(status.equals("Error")) {
+            writeMessageToClient(result + ";null;search");
         }
     }
     
@@ -179,8 +180,6 @@ public class ServerController {
         }
         catch (IOException e) {
             System.out.println("Error: " + e);
-        } catch (Exception ex) {
-            Logger.getLogger(ServerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

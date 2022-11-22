@@ -4,12 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/ClientController.java</file>
+            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/APIController.java</file>
+            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/main/ServerMain.java</file>
             <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/View/HandleImage_GUI.java</file>
-            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/View/FormatChangeExtension_GUI.java</file>
-            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/View/Home_GUI.java</file>
-            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/ServerController.java</file>
+            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/View/HomeSearchFilm_GUI.java</file>
+            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/DetectionController.java</file>
             <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/HandleImageController.java</file>
-            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/NewMain.java</file>
+            <file>file:/C:/Users/Chiquang/Documents/NetBeansProjects/SearchFilmApp/src/Controller/ClientHandlerController.java</file>
         </group>
     </open-files>
 </project-private>
