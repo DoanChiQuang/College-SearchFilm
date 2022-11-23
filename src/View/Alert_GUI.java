@@ -6,6 +6,8 @@
 package View;
 
 import Controller.ClientController;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -16,16 +18,23 @@ public class Alert_GUI extends javax.swing.JFrame {
     /**
      * Creates new form ErrorAlert_GUI
      */
+    public static String alertType = "";
+    public static String alertMessage = "";
+    
     public Alert_GUI() {
         initComponents();
-        this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-        String temp[] = ClientController.message_from_server.split(";");
-        System.out.println(ClientController.message_from_server);
-        if(temp[0].equals("Success")) {
-            message.setText(temp[1]);
+        this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);        
+        if(alertType.equals("Success")) {
+            message.setText(alertMessage);
+            titleTxt.setForeground(Color.GREEN);
+            message.setForeground(Color.GREEN);
+            jLabel2.setIcon(new ImageIcon(".\\src\\assets\\icon\\icons8-ok-64.png"));
         }
-        else if(temp[0].equals("Error")) {             
-            message.setText(temp[1]);
+        else if(alertType.equals("Error")) {             
+            message.setText(alertMessage);
+            titleTxt.setForeground(Color.RED);
+            message.setForeground(Color.RED);
+            jLabel2.setIcon(new ImageIcon(".\\src\\assets\\icon\\icons8-cancel-64.png"));
         }
     }
 
