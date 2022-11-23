@@ -216,9 +216,7 @@ public class HandleImageController {
             ImageIO.write(resizeImageJpg, ext, new File(path));
             return "Success;" + path;
         }
-        if(type.equals("large")) {
-            if(height < 150) height = height + 100;
-            if(width < 150) width = width + 100;
+        if(type.equals("large")) {            
             BufferedImage resizeImageJpg = resizeImage(originalImage, originalImage.getWidth()+200, originalImage.getHeight()+200);
             ImageIO.write(resizeImageJpg, ext, new File(path));
             return "Success;" + path;
