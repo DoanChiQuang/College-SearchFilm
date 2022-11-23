@@ -4,6 +4,8 @@ import Controller.HandleImageController;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -155,20 +157,20 @@ public class HandleImage_GUI extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
-                                .addComponent(image_handled, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(image_handled, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(findsame_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(compress_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(changeimage_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(zoom_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(grayscale_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(identify_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(back_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(back_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(changeimage_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(compress_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(chooseimage_btn)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(108, 108, 108)
+                        .addComponent(chooseimage_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +178,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(compress_btn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,17 +193,17 @@ public class HandleImage_GUI extends javax.swing.JFrame {
                         .addComponent(identify_btn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(back_btn))
-                    .addComponent(image_handled, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                    .addComponent(image_handled, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chooseimage_btn)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +214,21 @@ public class HandleImage_GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void identify_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identify_btnActionPerformed
-        // TODO add your handling code here:
+        if(!path.equals("")) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure to identify this file?", "Message", JOptionPane.YES_NO_OPTION);
+            if(result==0) {
+                String encode = handleImageController.convertFileToString(this.path);
+                String extension = handleImageController.getExtensionFile(this.path);
+                String message = encode + ";identify;" + extension + ";null";
+                Home_GUI.client.writeMessageToServer(message);
+                Home_GUI.client.readMessageFromServer();                
+                ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);
+                JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please choose your image!");
+        }
     }//GEN-LAST:event_identify_btnActionPerformed
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
@@ -221,31 +237,34 @@ public class HandleImage_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_back_btnActionPerformed
 
     private void chooseimage_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseimage_btnActionPerformed
-        String path;
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Image", "jpg", "gif", "png");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(HandleImage_GUI.this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            //290 234
-            path = chooser.getCurrentDirectory()+"\\"+chooser.getSelectedFile().getName();
-            ImageIcon imageIcon = new ImageIcon(path);
-            Image image = imageIcon.getImage();
-            Image imageScale = image.getScaledInstance(image_handled.getWidth(), image_handled.getHeight(), Image.SCALE_SMOOTH);
-            image_handled.setIcon(new ImageIcon(image));
-            this.path = path;
+        try {
+            String path;
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image", "jpg", "gif", "png");
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(HandleImage_GUI.this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                //290 234
+                path = chooser.getCurrentDirectory()+"\\"+chooser.getSelectedFile().getName();
+                Image image = ImageIO.read(new File(path));
+                image = image.getScaledInstance(322,366,Image.SCALE_DEFAULT);
+                image_handled.setIcon(new ImageIcon(image));            
+                this.path = path;
+            }
+        } catch (Exception e) {
+            
         }
     }//GEN-LAST:event_chooseimage_btnActionPerformed
 
     private void compress_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compress_btnActionPerformed
         if(!path.equals("")) {
-            int result = JOptionPane.showConfirmDialog(this, "Are you sure to compress this file?", "Message", JOptionPane.YES_NO_OPTION);            
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure to compress this file?", "Message", JOptionPane.YES_NO_OPTION);
             if(result==0) {
                 String encode = handleImageController.convertFileToString(this.path);
                 String extension = handleImageController.getExtensionFile(this.path);
                 String message = encode + ";compress;" + extension + ";null";
                 Home_GUI.client.writeMessageToServer(message);
-                Home_GUI.client.readMessageFromServer();                
+                Home_GUI.client.readMessageFromServer();
             }
         }
         else {
@@ -273,7 +292,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
 
     private void grayscale_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grayscale_btnActionPerformed
         if(!path.equals("")) {
-            int result = JOptionPane.showConfirmDialog(this, "Are you sure to compress this file?", "Message", JOptionPane.YES_NO_OPTION);            
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure to grayscale this file?", "Message", JOptionPane.YES_NO_OPTION);            
             if(result==0) {
                 String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
                 String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
@@ -281,7 +300,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
                 Home_GUI.client.writeMessageToServer(message);
                 Home_GUI.client.readMessageFromServer();
                 ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);
-                JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);       
+                JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
             }
         }
         else {
