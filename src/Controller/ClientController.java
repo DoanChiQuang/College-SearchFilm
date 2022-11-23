@@ -36,7 +36,7 @@ public class ClientController {
     
     public void connect() {
         try {
-            InetAddress ip = InetAddress.getByName("localhost");
+            InetAddress ip = InetAddress.getByName("192.168.28.106");
             socket = new Socket(ip, port);
             System.out.println("Connected!");                      
             
@@ -58,9 +58,13 @@ public class ClientController {
         if(status.equals("Success")) {
             String path = handleImageController.saveFile(message, extension, "image_client");
             this.message_from_server = path;
-//            new SuccessAlert_GUI().run();
+            Alert_GUI.alertType = "Success";
+            Alert_GUI.alertMessage = "Xử lý ảnh thành công!";
+            new Alert_GUI().run();
         }
         else if(status.equals("Error")) {
+            Alert_GUI.alertType = "Error";
+            Alert_GUI.alertMessage = "Lỗi không xử lý được ảnh!";
             new Alert_GUI().run();
         }        
     }
