@@ -36,7 +36,7 @@ public class ClientController {
     
     public void connect() {
         try {
-            InetAddress ip = InetAddress.getByName("192.168.28.106");
+            InetAddress ip = InetAddress.getByName("192.168.80.75");
             socket = new Socket(ip, port);
             System.out.println("Connected!");                      
             

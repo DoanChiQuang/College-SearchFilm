@@ -7,6 +7,12 @@ package View;
 
 import Controller.HandleImageController;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -135,25 +141,47 @@ public class ResizeImage_GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void smallBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smallBtnActionPerformed
-        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
-        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";zoom;" + extension + ";small";
-        Home_GUI.client.writeMessageToServer(message);
-        Home_GUI.client.readMessageFromServer();
-        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
-        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
-        this.dispose();
+        try {
+            String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+            String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+            String message = encode + ";zoom;" + extension + ";small";
+            Home_GUI.client.writeMessageToServer(message);
+            Home_GUI.client.readMessageFromServer();
+//            ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server); 
+            BufferedImage originalImage = ImageIO.read(new File(Home_GUI.client.message_from_server));
+            Image image = ImageIO.read(new File(Home_GUI.client.message_from_server));
+            int h = originalImage.getHeight();
+            int w = originalImage.getWidth();
+            while(w>100) w -= 50;
+            while(h>100) h -= 50;
+            image = image.getScaledInstance(h,w,Image.SCALE_DEFAULT);                    
+            JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, new ImageIcon(image));
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(ResizeImage_GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_smallBtnActionPerformed
 
     private void mediumBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mediumBtnActionPerformed
-        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
-        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";zoom;" + extension + ";medium";
-        Home_GUI.client.writeMessageToServer(message);
-        Home_GUI.client.readMessageFromServer();
-        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
-        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
-        this.dispose();
+        try {
+            String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+            String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+            String message = encode + ";zoom;" + extension + ";medium";
+            Home_GUI.client.writeMessageToServer(message);
+            Home_GUI.client.readMessageFromServer();
+            BufferedImage originalImage = ImageIO.read(new File(Home_GUI.client.message_from_server));
+            Image image = ImageIO.read(new File(Home_GUI.client.message_from_server));
+            int h = originalImage.getHeight();
+            int w = originalImage.getWidth();            
+            image = image.getScaledInstance(h,w,Image.SCALE_DEFAULT);                    
+            JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, new ImageIcon(image));
+    //        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
+//            JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
+            this.dispose();
+        }
+        catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_mediumBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -161,14 +189,25 @@ public class ResizeImage_GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void largeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_largeBtnActionPerformed
-        String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
-        String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
-        String message = encode + ";zoom;" + extension + ";large";
-        Home_GUI.client.writeMessageToServer(message);
-        Home_GUI.client.readMessageFromServer();
-        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
-        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
-        this.dispose();
+        try {
+            String encode = handleImageController.convertFileToString(HandleImage_GUI.path);
+            String extension = handleImageController.getExtensionFile(HandleImage_GUI.path);
+            String message = encode + ";zoom;" + extension + ";large";
+            Home_GUI.client.writeMessageToServer(message);
+            Home_GUI.client.readMessageFromServer();
+            BufferedImage originalImage = ImageIO.read(new File(Home_GUI.client.message_from_server));
+            Image image = ImageIO.read(new File(Home_GUI.client.message_from_server));
+            int h = originalImage.getHeight();
+            int w = originalImage.getWidth();            
+            image = image.getScaledInstance(h+200,w+200,Image.SCALE_DEFAULT);                    
+            JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, new ImageIcon(image));
+    //        ImageIcon imageIcon = new ImageIcon(Home_GUI.client.message_from_server);        
+    //        JOptionPane.showMessageDialog(this, "", "Image result", JOptionPane.YES_OPTION, imageIcon);
+            this.dispose();
+        }
+        catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_largeBtnActionPerformed
     
     public void run() {
@@ -188,3 +227,4 @@ public class ResizeImage_GUI extends javax.swing.JFrame {
     private javax.swing.JButton smallBtn;
     // End of variables declaration//GEN-END:variables
 }
+

@@ -246,7 +246,7 @@ public class HandleImage_GUI extends javax.swing.JFrame {
             if(returnVal == JFileChooser.APPROVE_OPTION) {
                 //290 234
                 path = chooser.getCurrentDirectory()+"\\"+chooser.getSelectedFile().getName();
-                Image image = ImageIO.read(new File(path));
+                Image image = ImageIO.read(new File(path));                
                 image = image.getScaledInstance(322,366,Image.SCALE_DEFAULT);
                 image_handled.setIcon(new ImageIcon(image));            
                 this.path = path;
