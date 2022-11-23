@@ -23,6 +23,8 @@ import javax.imageio.ImageIO;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class HandleImageController {
     
@@ -43,10 +45,23 @@ public class HandleImageController {
                 case "gray":
                     newPath = grayScale(pathName);
                     return newPath;
-                case "sameimage":
-                    URL url = new File("C:\\Users\\Chiquang\\Documents\\NetBeansProjects\\SearchFilmApp\\src\\assets\\image_server\\film_DemonSlayer.jpg").toURI().toURL();
-                    JSONObject json = APIController.getSameImage(url);
-                    System.out.println(String.valueOf(json));
+//                case "sameimage":
+                    
+                case "identify":
+                    File deleteFile = new File(pathName);
+                    deleteFile.delete();
+                    String npath = saveFilePath(path, extension);
+                    String rootPath = new File("").getAbsolutePath();
+                    String aPath = rootPath + npath.substring(1);
+                    DetectionController detectionController = new DetectionController(aPath);
+                    Mat img = detectionController.detectObjectOnImage();
+                    LocalDateTime myDateObj = LocalDateTime.now();
+                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+                    String formattedDate = myDateObj.format(myFormatObj);
+                    String pathFile = ".\\src\\assets\\image_server\\" + formattedDate + "." + extension;
+                    Imgcodecs imageCodecs = new Imgcodecs();
+                    imageCodecs.imwrite(pathFile, img);
+                    return "Success;" + pathFile;
                 default:
                     return "Error;null";
             }
@@ -152,6 +167,21 @@ public class HandleImageController {
         return "Error;Lỗi không lưu được file";
     }
     
+    public String saveFilePath(String path, String extensionType) {
+        String newPath = "";
+        try {
+            byte[] bytes = Base64.getMimeDecoder().decode(path);
+            LocalDateTime myDateObj = LocalDateTime.now();
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+            String formattedDate = myDateObj.format(myFormatObj);            
+            newPath = ".\\darknet\\data\\" + formattedDate + "." + extensionType;
+            FileUtils.writeByteArrayToFile(new File(newPath), bytes);
+        } catch (IOException ex) {
+            Logger.getLogger(HandleImageController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return newPath;
+    }
+    
     public String saveFile(String path, String extensionType, String folderName) {
         String newPath = "";
         try {
@@ -224,7 +254,7 @@ public class HandleImageController {
         catch (Exception e) {
             return "Error;Lỗi không xử lý được hình ảnh!";
         }
-    }
+    }        
     
     public static BufferedImage resizeImage(BufferedImage originalImage, int IMG_WIDTH, int IMG_HEIGHT) {
         BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, BufferedImage.TYPE_INT_ARGB);

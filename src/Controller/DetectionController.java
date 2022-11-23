@@ -14,15 +14,21 @@ import java.util.*;
 
 public class DetectionController {
 
-    public static void main(String[] args) throws FileNotFoundException {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        DetectionController DetectionController = new DetectionController();
-        DetectionController.detectObjectOnImage();         
-//        System.out.println(Core.NATIVE_LIBRARY_NAME);
-//        System.out.println(Core.VERSION);
+    private String path = "";
+    
+    public DetectionController(String path) {
+        this.path = path;
     }
+    
+//    public static void main(String[] args) throws FileNotFoundException {
+//        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//        DetectionController DetectionController = new DetectionController("C:\\Users\\Chiquang\\Documents\\NetBeansProjects\\SearchFilmApp\\darknet\\data\\avatar.jpg");
+//        DetectionController.detectObjectOnImage();
+////        System.out.println(Core.NATIVE_LIBRARY_NAME);
+////        System.out.println(Core.VERSION);
+//    }
 
-    public String detectObjectOnImage() throws FileNotFoundException {
+    public Mat detectObjectOnImage() throws FileNotFoundException {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         //  load the COCO class labels our YOLO model was trained on
         Scanner scan = new Scanner(new FileReader("C:\\Users\\Chiquang\\Documents\\NetBeansProjects\\SearchFilmApp\\darknet\\data\\coco.names"));
@@ -46,8 +52,8 @@ public class DetectionController {
         }
 
 
-        // load our input image
-        Mat img = Imgcodecs.imread("C:\\Users\\Chiquang\\Documents\\NetBeansProjects\\SearchFilmApp\\darknet\\data\\kite.jpg", Imgcodecs.IMREAD_COLOR); // dining_table.jpg soccer.jpg baggage_claim.jpg
+        // load our input image        
+        Mat img = Imgcodecs.imread(path, Imgcodecs.IMREAD_COLOR); // dining_table.jpg soccer.jpg baggage_claim.jpg
         //  -- determine  the output layer names that we need from YOLO
         // The forward() function in OpenCV’s Net class needs the ending layer till which it should run in the network.
         //  getUnconnectedOutLayers() vraca indexe za: yolo_82, yolo_94, yolo_106, (indexi su 82, 94 i 106) i to su poslednji layeri
@@ -73,9 +79,9 @@ public class DetectionController {
                 cocoLabels,
                 class_ids,
                 colors);
-        HighGui.imshow("Test", img );
-        HighGui.waitKey(10000);
-        return null;
+//        HighGui.imshow("Test", img );
+//        HighGui.waitKey(10000);
+        return img;
     }
 
     private HashMap<String, List> forwardImageOverNetwork(Mat img ,Net dnnNet,List<String> outputLayers) {
